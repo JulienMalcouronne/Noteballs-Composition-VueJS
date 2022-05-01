@@ -16,11 +16,11 @@
 
       <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active' : showMobileNav }">
         <div class="navbar-end">
-          <router-link to="/" class="navbar-item is-active"
+          <router-link @click="showMobileNav = false" to="/" class="navbar-item is-active"
           active-class="is-active">
             Notes
           </router-link>
-          <router-link to="/stats" class="navbar-item"  active-class="is-active">
+          <router-link @click="showMobileNav = false" to="/stats" class="navbar-item"  active-class="is-active">
 
             Stats
           </router-link>

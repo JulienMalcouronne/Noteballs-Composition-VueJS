@@ -1,7 +1,14 @@
 <template>
   <div class="notes">
 
-    <div class="card has-background-success-dark p-4 mb-5">
+    <AddEditNote v-model="newNote" ref="addEditNoteRef" placeholder="Add a New Note">
+      <template #buttons>
+        <button class="button is-link has-background-success" @click="addNote" :disabled="!newNote">Add new note</button>
+      </template>
+    </AddEditNote>
+
+    <pre>{{ newNote }}</pre>
+    <!-- <div class="card has-background-success-dark p-4 mb-5">
       <div class="field">
         <div class="control">
           <textarea class="textarea" v-model="newNote"
@@ -11,50 +18,42 @@
 
       <div class="field is-grouped is-grouped-right">
         <div class="control">
-          <button class="button is-link has-background-success" @click.prevent="addNote" :disabled="!newNote">Add new note</button>
+          <button class="button is-link has-background-success" @click="addNote" :disabled="!newNote">Add new note</button>
         </div>
 
-      </div>
-      <Note v-for="note in notes" :key="note.id" :note="note" @deleteClicked="deleteNote"></Note>
-    </div>
+      </div> -->
+      <!-- <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" @deleteClicked="deleteNote"></Note> -->
+      <Note v-for="note in storeNotes.notes" :key="note.id" :note="note"></Note>
+    <!-- </div> -->
   </div>
 </template>
 
 <script setup>
 
-import { ref } from "vue";
-import Note from "@/components/notes/Note.vue";
+  import { ref } from "vue";
+  import Note from "@/components/notes/Note.vue";
+  import AddEditNote from "@/components/notes/AddEditNote.vue";
+  import { useStoreNotes } from '@/stores/storeNotes';
 
-const newNote = ref("");
+  const storeNotes = useStoreNotes();
 
-const newNoteRef = ref(null);
+  const newNote = ref("");
 
-const notes = ref([
-    {
-      id: "id1",
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit iure dignissimos quas doloribus ad explicabo ea placeat, corporis, voluptatem fugit sint ratione laborum commodi, necessitatibus eveniet nam. Architecto, maiores labore!'
-    },
-    {
-      id: "id2",
-      content: 'Shorter notes'
-    }
-  ]);
- const addNote = () => {
-   let currentDate = new Date().getTime();
-   let id = currentDate.toString();
-   let note = {
-     id: id,
-     content: newNote.value
-   }
-   notes.value.unshift(note);
+  // const newNoteRef = ref(null);
+  const addEditNoteRef = ref(null);
 
-   newNote.value = "";
-   newNoteRef.value.focus();
- }
+  const addNote = () => {
 
- const deleteNote = idToDelete => {
-   notes.value = notes.value.filter(note => {
-     return note.id !== idToDelete
-   })
- }
+    storeNotes.addNote(newNote.value);
+
+    newNote.value = "";
+    addEditNoteRef.value.focusTextarea()
+    // newNoteRef.value.focus();
+  }
+
+  // const deleteNote = idToDelete => {
+  //   notes.value = notes.value.filter(note => {
+  //     return note.id !== idToDelete
+  //   })
+  // }
 </script>
