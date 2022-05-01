@@ -1,9 +1,10 @@
 
 <template>
   <NavBar></NavBar>
-  <router-link to="/" class="button">Notes</router-link> |
-  <router-link to="/stats" class="button">stats</router-link>
- <router-view ></router-view>
+  <div class="container is-max-desktop px-2 py-4">
+
+    <router-view ></router-view>
+  </div>
 </template>
 
 <script setup>
