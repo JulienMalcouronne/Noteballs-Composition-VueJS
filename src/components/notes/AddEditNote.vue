@@ -6,7 +6,7 @@
       <div class="field">
         <div class="control">
           <textarea class="textarea"
-          :placeholder="placeholder" ref="textareaRef" v-model="modelValue" @input="$emit('update:modelValue', modelValue)"></textarea>
+          :placeholder="placeholder" ref="textareaRef" v-model="modelValue" @input="$emit('update:modelValue', modelValue)" v-autofocus maxlength="100"></textarea>
           <!-- <textarea class="textarea" v-model="newNote"
           placeholder="Add a new note" ref="newNoteRef"></textarea> -->
         </div>
@@ -26,6 +26,7 @@
 <script setup>
 
   import { ref } from 'vue';
+  import { vAutofocus } from "@/directives/vAutofocus";
 
   const props = defineProps({
     modelValue: {
@@ -56,5 +57,11 @@
   defineExpose({
     focusTextarea
   })
+
+  // const vAutofocus = {
+  //   mounted: (el) => {
+  //     el.focus
+  //   }
+  // }
 
 </script>

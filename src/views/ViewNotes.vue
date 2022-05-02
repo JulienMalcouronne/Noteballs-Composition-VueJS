@@ -30,7 +30,7 @@
 
 <script setup>
 
-  import { ref } from "vue";
+  import { ref, watch } from "vue";
   import Note from "@/components/notes/Note.vue";
   import AddEditNote from "@/components/notes/AddEditNote.vue";
   import { useStoreNotes } from '@/stores/storeNotes';
@@ -56,4 +56,10 @@
   //     return note.id !== idToDelete
   //   })
   // }
+
+  watch(newNote, (newValue, oldValue) => {
+    if (newValue.length === 100) {
+      alert('Only 100 characters allowed');
+    }
+  })
 </script>
